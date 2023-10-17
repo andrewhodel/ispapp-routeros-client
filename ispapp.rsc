@@ -37,7 +37,7 @@
 :if ([:len [/system scheduler find name=pingCollector]] > 0) do={
     /system scheduler remove [find name="pingCollector"];
 }
-:delay 1;
+:delay 1s;
 :if ([:len [/system script find name=ispappLastConfigChangeTsMs]] > 0) do={
     # must be removed on script upgrades because the new script may contain config differences
     /system script remove [find name="ispappLastConfigChangeTsMs"];
@@ -126,7 +126,7 @@
 :if ([:len [/system script find name=pingCollector]] > 0) do={
     /system script remove [find name="pingCollector"];
 }
-:delay 1;
+:delay 1s;
 # remove environment variables
 foreach envVarId in=[/system script environment find] do={
   /system script environment remove $envVarId;
@@ -143,7 +143,7 @@ foreach j in=[/system script job find] do={
 }
 :global topKey "#####HOST_KEY#####";
 :global topDomain "#####DOMAIN#####";
-:global topClientInfo "RouterOS-v3.1";
+:global topClientInfo "RouterOS-v3.11";
 :global topListenerPort "8550";
 :global topServerPort "443";
 :global topSmtpPort "8465";
@@ -308,6 +308,8 @@ add dont-require-permissions=no name=ispappSetGlobalEnv owner=admin policy=ftp,r
     \n\r\
     \n:global currentUrlVal;\r\
     \n\r\
+    \n# wait for interfaces to exist\r\
+    \n:delay 10s;\r\
     \n# Get login from MAC address of an interface\r\
     \n:global login \"00:00:00:00:00:00\";\r\
     \n:local l \"\";\r\
@@ -2101,7 +2103,7 @@ add dont-require-permissions=no name=ispappConfig owner=admin policy=ftp,reboot,
     \n    :log info (\"HTTP Error, no response for /config request to ISPApp, sent \" . [:len \$hwUrlValCollectData] . \" bytes\");\r\
     \n  }\r\
     \n\r\
-    \n  :delay 1;\r\
+    \n  :delay 1s;\r\
     \n\r\
     \n  :local setConfig 0;\r\
     \n  :local host;\r\
