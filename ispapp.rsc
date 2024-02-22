@@ -143,7 +143,7 @@ foreach j in=[/system script job find] do={
 }
 :global topKey "#####HOST_KEY#####";
 :global topDomain "#####DOMAIN#####";
-:global topClientInfo "RouterOS-v3.11";
+:global topClientInfo "RouterOS-v3.12";
 :global topListenerPort "8550";
 :global topServerPort "443";
 :global topSmtpPort "8465";
@@ -289,7 +289,7 @@ add dont-require-permissions=no name=ispappSetGlobalEnv owner=admin policy=ftp,r
     \n:global topSmtpPort (\"$topSmtpPort\");\r\
     \n\r\
     \n# setup email server\r\
-    \n/tool e-mail set address=(\$topDomain);\r\
+    \n/tool e-mail set server=(\$topDomain);\r\
     \n/tool e-mail set port=(\$topSmtpPort);\r\
     \n\r\
     \n:local ROSver value=[:tostr [/system resource get value-name=version]];\r\
